@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrasi BK - Aplikasi BK SMP Negeri 1</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Sidebar Menu -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">BK</div>
+            <div class="sidebar-title"><h2>Aplikasi BK</h2><p>SMP Negeri 1</p></div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard"> Dashboard</a>
+            <a href="/data-siswa">👥 Data Siswa</a>
+            <a href="/administrasi-bk" class="active">📋 Administrasi BK</a>
+            <a href="/rpl-bk"> RPL BK</a>
+            <a href="/konseling">💬 Konseling Siswa</a>
+            <a href="/jadwal-bk">📅 Jadwal BK</a>
+            <a href="/laporan">📊 Laporan BK</a>
+            <a href="/cetak-dokumen">️ Cetak Dokumen</a>
+            <a href="#">⚙️ Pengaturan</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="avatar"></div>
+            <div class="user-info"><p>Guru BK</p><span>bk@smpn1.sch.id</span></div>
+        </div>
+    </aside>
+
+    <!-- Konten Utama -->
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle">☰</button>
+            <h1>Administrasi BK</h1>
+        </header>
+
+        <div class="page-content">
+            <div class="card">
+                <div class="card-header"><h3>Program Bimbingan dan Konseling</h3></div>
+                
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-top:15px;">
+                    
+                    <div style="border:2px dashed var(--border); border-radius:12px; padding:25px; text-align:center;">
+                        <div style="font-size:36px; margin-bottom:10px;"></div>
+                        <h4>Program Tahunan</h4>
+                        <p style="font-size:13px; color:var(--text-muted); margin-top:8px;">Rencana kegiatan BK selama satu tahun ajaran</p>
+                        <button class="btn btn-primary btn-sm mt-1">Buat Program</button>
+                    </div>
+
+                    <div style="border:2px dashed var(--border); border-radius:12px; padding:25px; text-align:center;">
+                        <div style="font-size:36px; margin-bottom:10px;"></div>
+                        <h4>Program Semester</h4>
+                        <p style="font-size:13px; color:var(--text-muted); margin-top:8px;">Rencana kegiatan per semester</p>
+                        <button class="btn btn-primary btn-sm mt-1">Buat Program</button>
+                    </div>
+
+                    <div style="border:2px dashed var(--border); border-radius:12px; padding:25px; text-align:center;">
+                        <div style="font-size:36px; margin-bottom:10px;">️</div>
+                        <h4>Program Bulanan</h4>
+                        <p style="font-size:13px; color:var(--text-muted); margin-top:8px;">Rencana kegiatan per bulan</p>
+                        <button class="btn btn-primary btn-sm mt-1">Buat Program</button>
+                    </div>
+
+                    <div style="border:2px dashed var(--border); border-radius:12px; padding:25px; text-align:center;">
+                        <div style="font-size:36px; margin-bottom:10px;">📋</div>
+                        <h4>Program Mingguan</h4>
+                        <p style="font-size:13px; color:var(--text-muted); margin-top:8px;">Rencana kegiatan per minggu</p>
+                        <button class="btn btn-primary btn-sm mt-1">Buat Program</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

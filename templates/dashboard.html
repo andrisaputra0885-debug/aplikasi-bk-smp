@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Aplikasi BK SMP Negeri 1</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Sidebar Menu -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">BK</div>
+            <div class="sidebar-title"><h2>Aplikasi BK</h2><p>SMP Negeri 1</p></div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard" class="active">🏠 Dashboard</a>
+            <a href="/data-siswa">👥 Data Siswa</a>
+            <a href="/administrasi-bk">📋 Administrasi BK</a>
+            <a href="/rpl-bk"> RPL BK</a>
+            <a href="/konseling">💬 Konseling Siswa</a>
+            <a href="/jadwal-bk"> Jadwal BK</a>
+            <a href="/laporan">📊 Laporan BK</a>
+            <a href="/cetak-dokumen">🖨️ Cetak Dokumen</a>
+            <a href="#">⚙️ Pengaturan</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="avatar"></div>
+            <div class="user-info"><p>Guru BK</p><span>bk@smpn1.sch.id</span></div>
+        </div>
+    </aside>
+
+    <!-- Konten Utama -->
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle">☰</button>
+            <h1>Dashboard</h1>
+            <div class="top-bar-right">
+                <span class="top-bar-date">Kamis, 16 Oktober 2025</span>
+                <button class="notification-btn">🔔<span class="badge">3</span></button>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <div class="welcome-section">
+                <h2>Selamat Datang, Guru BK</h2>
+                <p>Semoga hari ini penuh semangat untuk memberikan layanan terbaik bagi siswa.</p>
+            </div>
+
+            <!-- Kartu Statistik -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">👥</div>
+                    <div class="stat-info">
+                        <h3>{{ total_siswa }}</h3>
+                        <p>Jumlah Siswa</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">📅</div>
+                    <div class="stat-info">
+                        <h3>{{ kegiatan_hari_ini }}</h3>
+                        <p>Kegiatan BK Hari Ini</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">📋</div>
+                    <div class="stat-info">
+                        <h3>{{ jadwal_konseling }}</h3>
+                        <p>Jadwal Konseling</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">📄</div>
+                    <div class="stat-info">
+                        <h3>{{ rpl_count }}</h3>
+                        <p>RPL BK</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grafik & Jadwal -->
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-header"><h3>Rekap Kegiatan BK (Bulan Ini)</h3></div>
+                    <div class="chart-container" id="activityChart"></div>
+                    <script type="application/json" id="chartData">{{ kegiatan_bulan | tojson }}</script>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3>Jadwal Hari Ini</h3><a href="/jadwal-bk">Lihat Semua →</a></div>
+                    {% if jadwal_hari_ini %}
+                    <ul class="schedule-list">
+                        {% for j in jadwal_hari_ini %}
+                        <li class="schedule-item">
+                            <span class="schedule-time">{{ j.waktu_mulai }} - {{ j.waktu_selesai }}</span>
+                            <div class="schedule-info"><h4>{{ j.judul }}</h4><p>{{ j.ruang or 'Ruang BK' }}</p></div>
+                            <span class="schedule-badge badge-{{ j.jenis|lower }}">{{ j.jenis }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p style="color:var(--text-muted);text-align:center;padding:30px;">Tidak ada jadwal hari ini</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Quote Motivasi -->
+            <div class="quote-section">
+                <div class="quote-icon">❝</div>
+                <p class="quote-text">"Mendengarkan dengan hati, membantu dengan solusi, menuntun menuju masa depan yang lebih baik."</p>
+                <div class="quote-decoration"></div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

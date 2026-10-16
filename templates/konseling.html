@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konseling Siswa - Aplikasi BK SMP Negeri 1</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Sidebar Menu -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">BK</div>
+            <div class="sidebar-title"><h2>Aplikasi BK</h2><p>SMP Negeri 1</p></div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard">🏠 Dashboard</a>
+            <a href="/data-siswa">👥 Data Siswa</a>
+            <a href="/administrasi-bk">📋 Administrasi BK</a>
+            <a href="/rpl-bk"> RPL BK</a>
+            <a href="/konseling" class="active">💬 Konseling Siswa</a>
+            <a href="/jadwal-bk">📅 Jadwal BK</a>
+            <a href="/laporan">📊 Laporan BK</a>
+            <a href="/cetak-dokumen">🖨️ Cetak Dokumen</a>
+            <a href="#">⚙️ Pengaturan</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="avatar"></div>
+            <div class="user-info"><p>Guru BK</p><span>bk@smpn1.sch.id</span></div>
+        </div>
+    </aside>
+
+    <!-- Konten Utama -->
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle">☰</button>
+            <h1>Konseling Siswa</h1>
+        </header>
+
+        <div class="page-content">
+            <div class="content-grid">
+                <!-- Form Input Konseling -->
+                <div class="card">
+                    <div class="card-header"><h3>Tambah Catatan Konseling</h3></div>
+                    
+                    <div class="form-group">
+                        <label>Nama Siswa</label>
+                        <select class="form-control" id="konseling_siswa">
+                            <option value="">Pilih Siswa</option>
+                            {% for s in siswa_list %}
+                            <option value="{{ s.id }}">{{ s.nama }} ({{ s.kelas }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <input type="date" class="form-control" id="konseling_tanggal">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Jenis Konseling</label>
+                        <select class="form-control" id="konseling_jenis">
+                            <option value="Individu">Individu</option>
+                            <option value="Kelompok">Kelompok</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Masalah / Fokus</label>
+                        <textarea class="form-control" id="konseling_masalah" rows="3" placeholder="Deskripsikan masalah atau fokus konseling..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Hasil / Tindak Lanjut</label>
+                        <textarea class="form-control" id="konseling_hasil" rows="2" placeholder="Hasil konseling..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tindak Lanjut</label>
+                        <textarea class="form-control" id="konseling_tindak" rows="2" placeholder="Tindak lanjut yang diberikan..."></textarea>
+                    </div>
+                    
+                    <div class="d-flex gap-1">
+                        <button class="btn btn-primary" onclick="simpanKonseling()">💾 Simpan</button>
+                        <button class="btn btn-outline" onclick="document.getElementById('konseling_tanggal').value='';document.getElementById('konseling_masalah').value='';document.getElementById('konseling_hasil').value='';document.getElementById('konseling_tindak').value=''">Reset</button>
+                    </div>
+                </div>
+
+                <!-- Riwayat Konseling -->
+                <div class="card">
+                    <div class="card-header"><h3>Riwayat Konseling Terakhir</h3></div>
+                    {% if riwayat %}
+                    <ul class="schedule-list">
+                        {% for k in riwayat %}
+                        <li class="schedule-item">
+                            <span class="schedule-time">{{ k.tanggal.strftime('%d/%m/%Y') }}</span>
+                            <div class="schedule-info">
+                                <h4>{{ k.nama_siswa }}</h4>
+                                <p>{{ k.masalah[:60] }}...</p>
+                            </div>
+                            <span class="schedule-badge badge-individu">{{ k.jenis_konseling }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="text-center" style="padding:40px;color:var(--text-muted);">Belum ada riwayat konseling.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

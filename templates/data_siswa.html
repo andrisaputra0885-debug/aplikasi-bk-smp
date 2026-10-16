@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Siswa - Aplikasi BK SMP Negeri 1</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Sidebar Menu -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">BK</div>
+            <div class="sidebar-title"><h2>Aplikasi BK</h2><p>SMP Negeri 1</p></div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard">🏠 Dashboard</a>
+            <a href="/data-siswa" class="active">👥 Data Siswa</a>
+            <a href="/administrasi-bk"> Administrasi BK</a>
+            <a href="/rpl-bk"> RPL BK</a>
+            <a href="/konseling">💬 Konseling Siswa</a>
+            <a href="/jadwal-bk"> Jadwal BK</a>
+            <a href="/laporan">📊 Laporan BK</a>
+            <a href="/cetak-dokumen">🖨️ Cetak Dokumen</a>
+            <a href="#">⚙️ Pengaturan</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="avatar"></div>
+            <div class="user-info"><p>Guru BK</p><span>bk@smpn1.sch.id</span></div>
+        </div>
+    </aside>
+
+    <!-- Konten Utama -->
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle">☰</button>
+            <h1>Data Siswa</h1>
+            <div class="top-bar-right"><span class="top-bar-date">Total: {{ siswa_list|length }} siswa</span></div>
+        </header>
+
+        <div class="page-content">
+            <!-- Filter & Pencarian -->
+            <div class="filter-bar">
+                <input type="text" class="search-input" placeholder="Cari nama siswa..." oninput="searchSiswa(this.value)">
+                <select class="form-control" style="width:auto;" onchange="filterKelas(this.value)">
+                    <option value="">Semua Kelas</option>
+                    {% for k in kelas_list %}
+                    <option value="{{ k }}" {% if selected_kelas == k %}selected{% endif %}>{{ k }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-primary" onclick="openModal('modalTambahSiswa')">+ Tambah Siswa</button>
+            </div>
+
+            <!-- Tabel Data Siswa -->
+            <div class="card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Siswa</th>
+                            <th>Kelas</th>
+                            <th>L/P</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in siswa_list %}
+                        <tr data-id="{{ s.id }}">
+                            <td>{{ loop.index }}</td>
+                            <td>{{ s.nama }}</td>
+                            <td>{{ s.kelas }}</td>
+                            <td>{{ s.jenis_kelamin }}</td>
+                            <td>
+                                <button class="btn-action btn-edit" onclick="editSiswa({{ s.id }})" title="Edit">️</button>
+                                <button class="btn-action btn-delete" onclick="hapusSiswa({{ s.id }})" title="Hapus">️</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if not siswa_list %}
+                <p class="text-center" style="padding:40px;color:var(--text-muted);">Belum ada data siswa. Silakan tambah siswa baru.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Tambah Siswa -->
+    <div class="modal-overlay" id="modalTambahSiswa">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Tambah Siswa Baru</h3>
+                <button class="modal-close" onclick="closeModal('modalTambahSiswa')">✕</button>
+            </div>
+            <div class="form-group">
+                <label>Nama Siswa</label>
+                <input type="text" class="form-control" id="siswa_nama" placeholder="Masukkan nama lengkap">
+            </div>
+            <div class="form-group">
+                <label>Kelas</label>
+                <select class="form-control" id="siswa_kelas">
+                    <option value="">Pilih Kelas</option>
+                    <option value="7A">7A</option><option value="7B">7B</option>
+                    <option value="8A">8A</option><option value="8B">8B</option>
+                    <option value="9A">9A</option><option value="9B">9B</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Jenis Kelamin</label>
+                <select class="form-control" id="siswa_jk">
+                    <option value="">Pilih</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                </select>
+            </div>
+            <div class="modal-footer d-flex gap-1 justify-between">
+                <button class="btn btn-outline" onclick="closeModal('modalTambahSiswa')">Batal</button>
+                <button class="btn btn-primary" onclick="tambahSiswa()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Siswa -->
+    <div class="modal-overlay" id="modalEditSiswa">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit Data Siswa</h3>
+                <button class="modal-close" onclick="closeModal('modalEditSiswa')">✕</button>
+            </div>
+            <input type="hidden" id="edit_siswa_id">
+            <div class="form-group">
+                <label>Nama Siswa</label>
+                <input type="text" class="form-control" id="edit_siswa_nama">
+            </div>
+            <div class="form-group">
+                <label>Kelas</label>
+                <select class="form-control" id="edit_siswa_kelas">
+                    <option value="7A">7A</option><option value="7B">7B</option>
+                    <option value="8A">8A</option><option value="8B">8B</option>
+                    <option value="9A">9A</option><option value="9B">9B</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Jenis Kelamin</label>
+                <select class="form-control" id="edit_siswa_jk">
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                </select>
+            </div>
+            <div class="modal-footer d-flex gap-1 justify-between">
+                <button class="btn btn-outline" onclick="closeModal('modalEditSiswa')">Batal</button>
+                <button class="btn btn-primary" onclick="simpanEditSiswa()">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

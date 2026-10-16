@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cetak Dokumen - Aplikasi BK SMP Negeri 1</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Sidebar Menu -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">BK</div>
+            <div class="sidebar-title"><h2>Aplikasi BK</h2><p>SMP Negeri 1</p></div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard">🏠 Dashboard</a>
+            <a href="/data-siswa">👥 Data Siswa</a>
+            <a href="/administrasi-bk">📋 Administrasi BK</a>
+            <a href="/rpl-bk"> RPL BK</a>
+            <a href="/konseling">💬 Konseling Siswa</a>
+            <a href="/jadwal-bk">📅 Jadwal BK</a>
+            <a href="/laporan">📊 Laporan BK</a>
+            <a href="/cetak-dokumen" class="active">🖨️ Cetak Dokumen</a>
+            <a href="#">⚙️ Pengaturan</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="avatar"></div>
+            <div class="user-info"><p>Guru BK</p><span>bk@smpn1.sch.id</span></div>
+        </div>
+    </aside>
+
+    <!-- Konten Utama -->
+    <main class="main-content">
+        <header class="top-bar">
+            <button class="menu-toggle">☰</button>
+            <h1>Cetak Dokumen</h1>
+        </header>
+
+        <div class="page-content">
+            <div class="card">
+                <div class="card-header"><h3>Pilih Dokumen untuk Dicetak</h3></div>
+                
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:15px; margin-top:15px;">
+                    
+                    <div style="border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center; cursor:pointer;" onclick="window.print()">
+                        <div style="font-size:40px; margin-bottom:10px;">📋</div>
+                        <h4 style="margin-bottom:5px;">Administrasi BK</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">Program tahunan, semester, bulanan</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center; cursor:pointer;" onclick="window.print()">
+                        <div style="font-size:40px; margin-bottom:10px;"></div>
+                        <h4 style="margin-bottom:5px;">RPL BK</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">Rencana pelaksanaan layanan</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center; cursor:pointer;" onclick="window.print()">
+                        <div style="font-size:40px; margin-bottom:10px;">📝</div>
+                        <h4 style="margin-bottom:5px;">Laporan Konseling</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">Hasil dan catatan konseling</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center; cursor:pointer;" onclick="window.print()">
+                        <div style="font-size:40px; margin-bottom:10px;"></div>
+                        <h4 style="margin-bottom:5px;">Jadwal BK</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">Jadwal layanan bimbingan</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center; cursor:pointer;" onclick="window.print()">
+                        <div style="font-size:40px; margin-bottom:10px;">👥</div>
+                        <h4 style="margin-bottom:5px;">Rekapitulasi Siswa</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">Data lengkap siswa per kelas</p>
+                    </div>
+
+                    <div style="border:1px solid var(--border); border-radius:12px; padding:20px; text-align:center; cursor:pointer;" onclick="window.print()">
+                        <div style="font-size:40px; margin-bottom:10px;">📊</div>
+                        <h4 style="margin-bottom:5px;">Laporan Kegiatan BK</h4>
+                        <p style="font-size:12px; color:var(--text-muted);">Rekap seluruh kegiatan BK</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
